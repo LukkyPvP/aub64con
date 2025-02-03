@@ -28,10 +28,10 @@ jobs:
 
       - name: Build .exe
         run: |
-          pyinstaller --onefile your_script.py
+          pyinstaller --onefile main.py
 
       - name: Upload .exe as artifact
         uses: actions/upload-artifact@v4
         with:
           name: my-exe
-          path: dist/your_script.exe
+          path: dist/aub64con.exe
