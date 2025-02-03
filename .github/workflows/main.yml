@@ -34,4 +34,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: my-exe
-          path: dist/aub64con.exe
+          path: dist/main.exe
