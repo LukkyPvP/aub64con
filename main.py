@@ -38,7 +38,7 @@ def coding_unicode(num, coding='utf-8'):
 
 def coding_base65(num, coding='utf-8'):
     try:
-        return base64.b64encode(num).encode(coding)
+        return base64.b64encode(num.encode(coding))
     except UnicodeDecodeError:
         return f"Ошибка: строка {num} не смогла закодироваться с помощью {coding}"
 
