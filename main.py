@@ -1,58 +1,58 @@
 import base64
 
-def decoding_ascii(num, decoding='utf-8'):
+def decoding_ascii(text, decoding='utf-8'):
     try:
-        return bytes([num]).decode(decoding)
-    except UnicodeDecodeError:
-        return f"Ошибка: символ {num} не найден в {decoding}"
+        return bytes(map(int, text.split())).decode(decoding)
+    except (ValueError, UnicodeDecodeError) as e:
+        return f"Ошибка: {e}"
 
-def decoding_unicode(num, decoding='utf-8'):
+def decoding_unicode(text, decoding='utf-8'):
     try:
         if decoding == "utf-8":
-            return chr(int(num))
+            return ''.join(chr(int(num)) for num in text.split())
         else:
-            return num.encode().decode(f'{decoding}')
+            return text.encode().decode(f'{decoding}')
     except UnicodeDecodeError:
-        return f"Ошибка: символ {num} не найден в {decoding}"
+        return f"Ошибка: строка {text} не найдена в {decoding}"
 
-def decoding_base65(num, decoding='utf-8'):
+def decoding_base65(text, decoding='utf-8'):
     try:
-        return base64.b64decode(num).decode(decoding)
+        return base64.b64decode(text).decode(decoding)
     except UnicodeDecodeError:
-        return f"Ошибка: символ {num} не найден в {decoding}"
+        return f"Ошибка: строка {text} не найдена в {decoding}"
 
-def coding_ascii(num, coding='utf-8'):
+def coding_ascii(text, coding='utf-8'):
     try:
-        return ord(num.encode(coding))
+        return ' '.join(str(ord(char)) for char in text.encode(coding).decode('latin1'))
     except UnicodeEncodeError:
-        return f"Ошибка: строка {str} не смогла закодироваться с помощью {coding}"
+        return f"Ошибка: строка {text} не смогла закодироваться с помощью {coding}"
 
-def coding_unicode(num, coding='utf-8'):
+def coding_unicode(text, coding='utf-8'):
     try:
         if coding == "utf-8":
-            return ord(num)
+            return ' '.join(str(ord(char)) for char in text)
         else:
-            return num.decode().encode(f'{coding}')
+            return text.decode().encode(f'{coding}')
     except UnicodeEncodeError:
-        return f"Ошибка: строка {num} не смогла закодироваться с помощью {coding}"
+        return f"Ошибка: строка {text} не смогла закодироваться с помощью {coding}"
 
-def coding_base65(num, coding='utf-8'):
+def coding_base65(text, coding='utf-8'):
     try:
-        return base64.b64encode(num.encode(coding))
+        return base64.b64encode(text.encode(coding)).decode('utf-8')
     except UnicodeDecodeError:
-        return f"Ошибка: строка {num} не смогла закодироваться с помощью {coding}"
+        return f"Ошибка: строка {text} не смогла закодироваться с помощью {coding}"
 
 selectcodingordecoding = input("coding или decoding?: ")
 if selectcodingordecoding == "decoding":
     selectdecoding = input("ASCII Type, Unicode или Base65?: ")
     if selectdecoding == "ASCII":
-        shar = int(input("Введите символ: "))
+        text = input("Введите строку: ")
         decoding = input("Введите кодировку: ")
-        print(decoding_ascii(shar, decoding))
+        print(decoding_ascii(text, decoding))
     elif selectdecoding == "Unicode":
-        shar = input("Введите символ: ")
+        text = input("Введите строку: ")
         decoding = input("Введите кодировку: ")
-        print(decoding_unicode(shar, decoding))
+        print(decoding_unicode(text, decoding))
     elif selectdecoding == "Base65":
         base65str = input("Введите Base65 строку: ")
         base65decoding = input("Введите кодировку: ")
@@ -60,13 +60,13 @@ if selectcodingordecoding == "decoding":
 elif selectcodingordecoding == "coding":
     selectcoding = input("ASCII Type, Unicode or Base65?: ")
     if selectcoding == "ASCII":
-        shar = input("Введите символ: ")
+        text = input("Введите строку: ")
         coding = input("Введите кодировку: ")
-        print(coding_ascii(shar, coding))
+        print(coding_ascii(text, coding))
     elif selectcoding == "Unicode":
-        shar = input("Введите символ: ")
+        text = input("Введите строку: ")
         coding = input("Введите кодировку: ")
-        print(coding_unicode(shar, coding))
+        print(coding_unicode(text, coding))
     elif selectcoding == "Base65":
         base65str = input("Введите строку: ")
         base65coding = input("Введите кодировку: ")
