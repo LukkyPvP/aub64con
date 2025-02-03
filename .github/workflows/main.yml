@@ -31,7 +31,7 @@ jobs:
           pyinstaller --onefile your_script.py
 
       - name: Upload .exe as artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v2
         with:
           name: my-exe
           path: dist/your_script.exe
