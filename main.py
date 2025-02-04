@@ -21,6 +21,9 @@ def decoding_base65(text, decoding='utf-8'):
     except UnicodeDecodeError:
         return f"Ошибка: строка {text} не найдена в {decoding}"
 
+def decoding_binary(text):
+    return " ".join([str(int(b, 2)) for b in text.split()])
+
 def coding_ascii(text, coding='utf-8'):
     try:
         return ' '.join(str(ord(char)) for char in text.encode(coding).decode('latin1'))
@@ -42,9 +45,13 @@ def coding_base65(text, coding='utf-8'):
     except UnicodeDecodeError:
         return f"Ошибка: строка {text} не смогла закодироваться с помощью {coding}"
 
+def coding_binary(text):
+    textlist = [int(d) for d in text.split()]
+    return " ".join([bin(d)[2:].zfill(11) for d in textlist])
+
 selectcodingordecoding = input("coding или decoding?: ")
 if selectcodingordecoding == "decoding":
-    selectdecoding = input("ASCII Type, Unicode или Base65?: ")
+    selectdecoding = input("ASCII Type, Unicode, Base65 или Binary?: ")
     if selectdecoding == "ASCII":
         text = input("Введите строку: ")
         decoding = input("Введите кодировку: ")
@@ -57,8 +64,11 @@ if selectcodingordecoding == "decoding":
         base65str = input("Введите Base65 строку: ")
         base65decoding = input("Введите кодировку: ")
         print(decoding_base65(base65str, base65decoding))
+    elif selectdecoding == "Binary":
+        binary = input("Введите бинарный код: ")
+        print(decoding_binary(binary))
 elif selectcodingordecoding == "coding":
-    selectcoding = input("ASCII Type, Unicode or Base65?: ")
+    selectcoding = input("ASCII Type, Unicode, Base65 или Binary?: ")
     if selectcoding == "ASCII":
         text = input("Введите строку: ")
         coding = input("Введите кодировку: ")
@@ -71,3 +81,6 @@ elif selectcodingordecoding == "coding":
         base65str = input("Введите строку: ")
         base65coding = input("Введите кодировку: ")
         print(coding_base65(base65str, base65coding))
+    elif selectcoding == "Binary":
+        binary = input("Введите двоичный код: ")
+        print(coding_binary(binary))
