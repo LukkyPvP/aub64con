@@ -1,1 +1,1 @@
-ASCII, Unicode and Base64 convertor!
+ASCII, Unicode Base64 and Binary convertor!
